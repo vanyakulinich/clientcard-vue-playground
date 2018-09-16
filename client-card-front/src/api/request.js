@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 const request = async () => {
   return axiosInstance
     .get()
-    .then(response => response.data)
+    .then(response => response.data.map((el, i) => {return {...el, id: i}}))
     .catch(err => {throw new Error(err)})
 }
 

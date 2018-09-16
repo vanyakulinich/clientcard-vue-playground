@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-      <ClientsList v-bind:clients='this.clients'/>
+      <ClientsList v-bind:clients='this.clients' v-bind:chosen='chosen'/>
+      <ClientCard/>
     </div>
 </template>
 
@@ -8,14 +9,22 @@
 /* eslint-disable */
 import request from './api/request';
 import ClientsList from './components/ClientsList'
+import ClientCard from './components/ClientCard'
 export default {
   name: 'app',
   components: {
-    ClientsList
+    ClientsList,
+    ClientCard,
   },
   data() {
     return {
-      clients: []
+      clients: [],
+      chosenClient: null
+    }
+  },
+  methods: {
+    chosen: function(client) {
+      this.chosenClient = client
     }
   },
   async mounted() {
@@ -26,11 +35,10 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* display: flex; */
-  width: 80vw;
-  height: 80vh;
+  width: 60vw;
+  height: 60vh;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
 }
 </style>
