@@ -5,13 +5,11 @@ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api/clients'
 });
 
-const request = (url) => {
-  return axiosInstance.get(url)
-        .then(response => {
-          console.log(response.data)
-          return response.data
-        })
-        .catch(err => {throw new Error(err)})
+const request = async () => {
+  return axiosInstance
+    .get()
+    .then(response => response.data)
+    .catch(err => {throw new Error(err)})
 }
 
 export default request;

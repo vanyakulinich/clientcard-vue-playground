@@ -1,22 +1,25 @@
 <template>
     <div id="app">
-      {{clients ? 'success' : 'no data'}}
+      <ClientsList v-bind:clients='this.clients'/>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
 import request from './api/request';
-
+import ClientsList from './components/ClientsList'
 export default {
   name: 'app',
+  components: {
+    ClientsList
+  },
   data() {
     return {
-      clients: null
+      clients: []
     }
   },
-   mounted() {
-    this.clients = request()
+  async mounted() {
+    this.clients = await request();
   },
 }
 </script>
