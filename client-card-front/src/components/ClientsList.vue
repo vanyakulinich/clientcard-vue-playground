@@ -3,7 +3,7 @@
     <md-list-item 
       v-for="client in clients" 
       :key='client.id'
-      @click='select'
+      @click='$emit("select", client.id)'
     >
       <md-avatar>
         <img :src='client.general.avatar' alt="Avatar">
@@ -24,11 +24,6 @@ export default {
   props: {
     clients: null || Array
   },
-  methods: {
-    select: function(e) {
-      console.log(e)
-    }
-  }
 }
 </script>
 

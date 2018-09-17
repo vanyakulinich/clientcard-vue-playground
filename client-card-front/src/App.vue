@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-      <ClientsList v-bind:clients='this.clients' v-bind:chosen='chosen'/>
-      <ClientCard/>
+      <ClientsList v-bind:clients='this.clients' v-on:select = 'chosen'/>
+      <ClientCard v-bind:client='this.chosenClient'/>
     </div>
 </template>
 
@@ -23,9 +23,10 @@ export default {
     }
   },
   methods: {
-    chosen: function(client) {
-      this.chosenClient = client
-    }
+    chosen: function(id) {
+      this.chosenClient = this.clients.find(el => el.id === id)
+      console.log(this.chosenClient)
+    },
   },
   async mounted() {
     this.clients = await request();
@@ -35,10 +36,11 @@ export default {
 
 <style>
 #app {
-  width: 60vw;
-  height: 60vh;
+  width: 100vw;
+  height: 70vh;
   padding-top: 100px;
   display: flex;
   justify-content: center;
+  align-content: center;
 }
 </style>
