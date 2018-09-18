@@ -2,7 +2,7 @@
   <md-card md-with-hover>
     <md-field>
       <label>Search Bar</label>
-      <md-input v-model="input"></md-input>
+      <md-input v-on:input="currentInput"></md-input>
     </md-field>
   </md-card>
 </template>
@@ -10,9 +10,11 @@
 <script>
 export default {
   name: 'Search',
-  data: () => ({
-    input: null,
-  })
+  methods: {
+    currentInput: function(e) {
+       this.$emit('input', e.toLowerCase())
+    }
+  }
 }
 </script>
 

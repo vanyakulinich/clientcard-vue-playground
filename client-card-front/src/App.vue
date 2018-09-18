@@ -1,8 +1,11 @@
 <template>
     <div id="app">
       <div class='clientList'>
-        <Search/>
-        <ClientsList v-bind:clients='this.clients' v-on:select = 'chosen'/>
+        <Search v-on:input = 'inputValue'/>
+        <ClientsList 
+          v-bind:clients='this.searched ? this.searched : this.clients' 
+          v-on:select = 'chosen'
+        />
       </div>
       <ClientCard v-bind:client='this.chosenClient' class='card'/>
     </div>
@@ -25,7 +28,9 @@ export default {
   data() {
     return {
       clients: [],
-      chosenClient: null
+      chosenClient: null,
+      input: null,
+      searched: null
     }
   },
   methods: {
@@ -33,6 +38,18 @@ export default {
       this.chosenClient = this.clients.find(el => el.id === id)
       console.log(this.chosenClient)
     },
+    inputValue: function(value) {
+      if(!value) {
+        this.searched = null; 
+        return;
+      }
+      // simple search just  amoung clients names
+      const filtered = this.clients.filter(el => {
+        if(el.general.firstName.toLowerCase().indexOf(value) >=0 ||
+          el.general.lastName.toLowerCase().indexOf(value) >= 0) return el;
+      })
+      this.searched = filtered;
+    }
   },
   async mounted() {
     this.clients = await request();
