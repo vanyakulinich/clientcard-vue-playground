@@ -12,7 +12,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import request from './api/request';
 import ClientsList from './components/ClientsList'
 import ClientCard from './components/ClientCard'
@@ -36,13 +35,13 @@ export default {
   methods: {
     chosen: function(id) {
       this.chosenClient = this.clients.find(el => el.id === id)
-      console.log(this.chosenClient)
     },
     inputValue: function(value) {
       if(!value) {
         this.searched = null; 
         return;
       }
+      value && this.chosenClient && (this.chosenClient = null);
       // simple search just  amoung clients names
       const filtered = this.clients.filter(el => {
         if(el.general.firstName.toLowerCase().indexOf(value) >=0 ||
